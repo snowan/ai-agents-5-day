@@ -1,0 +1,14 @@
+.env
+CLAUDE.md
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.vscode/
+.env
+env/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+.DS_Store
+.idea/
