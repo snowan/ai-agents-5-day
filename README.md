@@ -87,7 +87,13 @@ Kaggle 5-day AI Agents course - Building AI agents using Google's Agent Developm
 ai-agents-5-day/
 ├── .env                               # API keys (gitignored)
 ├── .venv/                             # Virtual environment (gitignored)
-├── Day_1a_From_Prompt_to_Action.ipynb # First notebook - building basic agent
+├── .gitignore                         # Git ignore patterns
+├── sample-agent/                      # Sample agent created by ADK
+│   ├── .env                          # Agent-specific API key
+│   ├── __init__.py                   # Python package file
+│   └── agent.py                      # Agent definition
+├── Day_1a_From_Prompt_to_Action.ipynb # Day 1a: Building your first agent
+├── Day_1b_Agent_Architectures.ipynb   # Day 1b: Multi-agent systems & workflows
 ├── CLAUDE.md                          # Development guidance
 └── README.md                          # This file
 ```
@@ -120,8 +126,33 @@ The web UI will be available at `http://localhost:8000`
 
 **Note:** For local development, the notebook includes a modified `get_adk_proxy_url()` function that detects whether you're running in Kaggle/Colab or locally and returns the appropriate URL.
 
+## Course Content
+
+### Day 1a: From Prompt to Action
+Learn the fundamentals of building AI agents:
+- Install and configure ADK
+- Create your first simple agent with tools (Google Search)
+- Use `InMemoryRunner` to execute agent queries
+- Explore the ADK web UI
+
+### Day 1b: Multi-Agent Systems & Workflow Patterns
+Build sophisticated agent teams:
+- **LLM-based orchestration**: Use an LLM as a "manager" to coordinate agents
+- **Sequential workflows**: Create fixed pipelines (outline → write → edit)
+- **Parallel workflows**: Run independent tasks concurrently for speed
+- **Loop workflows**: Implement iterative refinement cycles (writer ⇄ critic)
+
+Key concepts:
+- `Agent`, `SequentialAgent`, `ParallelAgent`, `LoopAgent`
+- Using `output_key` to pass state between agents
+- Choosing the right workflow pattern for your use case
+
 ## Resources
 
 - [ADK Documentation](https://google.github.io/adk-docs/)
 - [ADK Quickstart for Python](https://google.github.io/adk-docs/get-started/python/)
+- [ADK Agents Overview](https://google.github.io/adk-docs/agents/)
+- [Sequential Agents](https://google.github.io/adk-docs/agents/workflow-agents/sequential-agents/)
+- [Parallel Agents](https://google.github.io/adk-docs/agents/workflow-agents/parallel-agents/)
+- [Loop Agents](https://google.github.io/adk-docs/agents/workflow-agents/loop-agents/)
 - [Kaggle 5-day AI Agents Course](https://www.kaggle.com/learn-guide/5-day-gen-ai)
