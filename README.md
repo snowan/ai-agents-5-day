@@ -45,6 +45,28 @@ Kaggle 5-day AI Agents course - Building AI agents using Google's Agent Developm
 
 ## Running the Notebooks
 
+### Option 1: VS Code (Recommended)
+
+1. **Open the project in VS Code**
+   ```bash
+   code .
+   ```
+
+2. **Open the notebook**
+   - Open `Day_1a_From_Prompt_to_Action.ipynb`
+
+3. **Select the correct kernel**
+   - Click on the kernel name in the top-right corner
+   - Select `Python (ai-agents-5-day)` from the dropdown
+   - Or press `Cmd+Shift+P` (macOS) / `Ctrl+Shift+P` (Windows/Linux)
+   - Type "Select Kernel" and choose `Python (ai-agents-5-day)`
+
+4. **Run cells**
+   - Execute cells one at a time (don't use "Run All" to avoid API rate limits)
+   - Press `Shift+Enter` to run each cell
+
+### Option 2: Jupyter Notebook
+
 1. **Start Jupyter**
    ```bash
    jupyter notebook
@@ -70,17 +92,33 @@ ai-agents-5-day/
 └── README.md                          # This file
 ```
 
-## ADK Commands
+## Working with ADK Web UI (Local Development)
 
-Create a new agent:
+The notebook includes a web UI for testing agents interactively.
+
+### Create a sample agent
+
 ```bash
-adk create <agent-name> --model gemini-2.5-flash-lite --api_key $GOOGLE_API_KEY
+# Make sure GOOGLE_API_KEY is set in .env or environment
+source .venv/bin/activate
+adk create sample-agent --model gemini-2.5-flash-lite --api_key $GOOGLE_API_KEY
 ```
 
-Run ADK web UI:
+This creates a `sample-agent/` directory with:
+- `agent.py` - Agent definition
+- `.env` - API key configuration
+- `__init__.py` - Python package file
+
+### Run ADK web UI locally
+
 ```bash
+cd sample-agent
 adk web
 ```
+
+The web UI will be available at `http://localhost:8000`
+
+**Note:** For local development, the notebook includes a modified `get_adk_proxy_url()` function that detects whether you're running in Kaggle/Colab or locally and returns the appropriate URL.
 
 ## Resources
 
