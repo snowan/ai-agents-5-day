@@ -94,6 +94,7 @@ ai-agents-5-day/
 │   └── agent.py                      # Agent definition
 ├── Day_1a_From_Prompt_to_Action.ipynb # Day 1a: Building your first agent
 ├── Day_1b_Agent_Architectures.ipynb   # Day 1b: Multi-agent systems & workflows
+├── Day_2a_Agent_Tools.ipynb           # Day 2a: Custom tools & code execution
 ├── CLAUDE.md                          # Development guidance
 └── README.md                          # This file
 ```
@@ -147,12 +148,36 @@ Key concepts:
 - Using `output_key` to pass state between agents
 - Choosing the right workflow pattern for your use case
 
+### Day 2a: Agent Tools
+Extend agents with custom functionality:
+- **Function Tools**: Convert Python functions into agent tools
+- **Agent Tools**: Use specialist agents as tools in other agents
+- **Code Execution**: Improve reliability with `BuiltInCodeExecutor`
+- **Tool Types**: Overview of custom vs built-in tools
+
+Key concepts:
+- Creating custom function tools with proper docstrings and type hints
+- Using `AgentTool` to delegate tasks to specialist agents
+- Understanding when to use Agent Tools vs Sub-Agents
+- Built-in tools: Gemini tools, Google Cloud tools, third-party tools
+
 ## Resources
 
+### Documentation
 - [ADK Documentation](https://google.github.io/adk-docs/)
 - [ADK Quickstart for Python](https://google.github.io/adk-docs/get-started/python/)
+
+### Agents
 - [ADK Agents Overview](https://google.github.io/adk-docs/agents/)
 - [Sequential Agents](https://google.github.io/adk-docs/agents/workflow-agents/sequential-agents/)
 - [Parallel Agents](https://google.github.io/adk-docs/agents/workflow-agents/parallel-agents/)
 - [Loop Agents](https://google.github.io/adk-docs/agents/workflow-agents/loop-agents/)
+
+### Tools
+- [ADK Tools Overview](https://google.github.io/adk-docs/tools/)
+- [Custom Tools Guide](https://google.github.io/adk-docs/tools-custom/)
+- [Function Tools](https://google.github.io/adk-docs/tools/function-tools/)
+- [Plugins Overview](https://google.github.io/adk-docs/plugins/)
+
+### Course
 - [Kaggle 5-day AI Agents Course](https://www.kaggle.com/learn-guide/5-day-gen-ai)
