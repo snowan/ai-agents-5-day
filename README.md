@@ -92,11 +92,13 @@ ai-agents-5-day/
 │   ├── .env                          # Agent-specific API key
 │   ├── __init__.py                   # Python package file
 │   └── agent.py                      # Agent definition
-├── Day_1a_From_Prompt_to_Action.ipynb # Day 1a: Building your first agent
-├── Day_1b_Agent_Architectures.ipynb   # Day 1b: Multi-agent systems & workflows
-├── Day_2a_Agent_Tools.ipynb           # Day 2a: Custom tools & code execution
-├── CLAUDE.md                          # Development guidance
-└── README.md                          # This file
+├── Day_1a_From_Prompt_to_Action.ipynb       # Day 1a: Building your first agent
+├── Day_1b_Agent_Architectures.ipynb         # Day 1b: Multi-agent systems & workflows
+├── Day_2a_Agent_Tools.ipynb                 # Day 2a: Custom tools & code execution
+├── Day_2b_Agent_Tools_Best_Practices.ipynb  # Day 2b: MCP & long-running operations
+├── Day_2b_Exercise_Solution.ipynb           # Day 2b: Exercise solution
+├── CLAUDE.md                                # Development guidance
+└── README.md                                # This file
 ```
 
 ## Working with ADK Web UI (Local Development)
@@ -161,6 +163,25 @@ Key concepts:
 - Understanding when to use Agent Tools vs Sub-Agents
 - Built-in tools: Gemini tools, Google Cloud tools, third-party tools
 
+### Day 2b: Agent Tools Best Practices
+Advanced patterns for production-ready agents:
+- **MCP Integration**: Connect to external services using Model Context Protocol
+- **Long-Running Operations**: Implement human-in-the-loop approvals
+- **Resumable Workflows**: Build agents that pause and resume execution
+- **State Management**: Maintain conversation state across interruptions
+
+Key concepts:
+- Using `McpToolset` to integrate with MCP servers
+- Implementing approval flows with `ToolContext.request_confirmation()`
+- Creating resumable apps with `App` and `ResumabilityConfig`
+- Detecting and handling `adk_request_confirmation` events
+- Using `invocation_id` to resume paused executions
+
+**Exercise Solution**: Image generation agent with cost approval
+- Combines MCP tool (getTinyImage) with custom approval logic
+- Auto-approves single images, requires approval for bulk requests
+- Demonstrates both MCP integration and long-running operations patterns
+
 ## Resources
 
 ### Documentation
@@ -177,7 +198,17 @@ Key concepts:
 - [ADK Tools Overview](https://google.github.io/adk-docs/tools/)
 - [Custom Tools Guide](https://google.github.io/adk-docs/tools-custom/)
 - [Function Tools](https://google.github.io/adk-docs/tools/function-tools/)
+- [MCP Tools](https://google.github.io/adk-docs/tools/mcp-tools/)
+- [Long-Running Operations](https://google.github.io/adk-docs/tools/function-tools/)
 - [Plugins Overview](https://google.github.io/adk-docs/plugins/)
+
+### Runtime & State
+- [App and Runner](https://google.github.io/adk-docs/runtime/)
+- [Sessions and State Management](https://google.github.io/adk-docs/runtime/)
+
+### MCP (Model Context Protocol)
+- [MCP Specification](https://spec.modelcontextprotocol.io/)
+- [MCP Servers](https://modelcontextprotocol.io/examples)
 
 ### Course
 - [Kaggle 5-day AI Agents Course](https://www.kaggle.com/learn-guide/5-day-gen-ai)
