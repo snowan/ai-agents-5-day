@@ -97,6 +97,8 @@ ai-agents-5-day/
 ├── Day_2a_Agent_Tools.ipynb                 # Day 2a: Custom tools & code execution
 ├── Day_2b_Agent_Tools_Best_Practices.ipynb  # Day 2b: MCP & long-running operations
 ├── Day_2b_Exercise_Solution.ipynb           # Day 2b: Exercise solution
+├── Day_3a_Sessions.ipynb                    # Day 3a: Session management
+├── Day_3b_Agent_Memory.ipynb                # Day 3b: Memory management (with test queries)
 ├── CLAUDE.md                                # Development guidance
 └── README.md                                # This file
 ```
@@ -182,6 +184,40 @@ Key concepts:
 - Auto-approves single images, requires approval for bulk requests
 - Demonstrates both MCP integration and long-running operations patterns
 
+### Day 3a: Sessions
+Manage conversation state and history:
+- **Session Management**: Create and retrieve conversation sessions
+- **Session Service**: Use `InMemorySessionService` for local development
+- **Session Events**: Track all interactions (messages, tool calls, responses)
+- **Multi-Session Handling**: Manage multiple independent conversations
+
+Key concepts:
+- Using `SessionService.create_session()` and `get_session()`
+- Session identifiers: `app_name`, `user_id`, `session_id`
+- Accessing session events and conversation history
+- Understanding when to create new sessions vs reuse existing ones
+
+### Day 3b: Memory Management
+Build agents with long-term knowledge storage:
+- **Memory Service**: Store and retrieve information across conversations
+- **Memory vs Sessions**: Short-term (session) vs long-term (memory) storage
+- **Memory Ingestion**: Transfer session data to memory with `add_session_to_memory()`
+- **Memory Retrieval**: Search memories with `load_memory` and `preload_memory` tools
+- **Memory Consolidation**: Extract key facts from raw conversations (production feature)
+
+Key concepts:
+- `InMemoryMemoryService` for development (keyword matching)
+- `VertexAiMemoryBankService` for production (semantic search, LLM-powered consolidation)
+- Reactive retrieval (`load_memory`) vs proactive retrieval (`preload_memory`)
+- Automating memory storage with `after_agent_callback`
+- Understanding keyword matching vs semantic search limitations
+
+**Hands-On Practice**: Test Different Queries
+- Query 1: "what color does the user like" - Tests keyword matching with similar words
+- Query 2: "haiku" - Tests specific content type retrieval
+- Query 3: "age" - Demonstrates memory doesn't hallucinate non-existent data
+- Query 4: "preferred hue" - Shows keyword matching limitations vs semantic search
+
 ## Resources
 
 ### Documentation
@@ -205,6 +241,12 @@ Key concepts:
 ### Runtime & State
 - [App and Runner](https://google.github.io/adk-docs/runtime/)
 - [Sessions and State Management](https://google.github.io/adk-docs/runtime/)
+
+### Sessions & Memory
+- [ADK Sessions Documentation](https://google.github.io/adk-docs/sessions/)
+- [ADK Memory Documentation](https://google.github.io/adk-docs/sessions/memory/)
+- [Vertex AI Memory Bank Overview](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/overview)
+- [Memory Consolidation Guide](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/generate-memories)
 
 ### MCP (Model Context Protocol)
 - [MCP Specification](https://spec.modelcontextprotocol.io/)
