@@ -99,6 +99,11 @@ ai-agents-5-day/
 ├── Day_2b_Exercise_Solution.ipynb           # Day 2b: Exercise solution
 ├── Day_3a_Sessions.ipynb                    # Day 3a: Session management
 ├── Day_3b_Agent_Memory.ipynb                # Day 3b: Memory management (with test queries)
+├── Day_4a_Agent_Observability.ipynb         # Day 4a: Logging, traces & custom plugins
+├── research-agent/                          # Research paper finder agent (Day 4a)
+│   ├── .env                                # Agent-specific API key
+│   ├── __init__.py                         # Python package file
+│   └── agent.py                            # Agent definition
 ├── CLAUDE.md                                # Development guidance
 └── README.md                                # This file
 ```
@@ -218,6 +223,33 @@ Key concepts:
 - Query 3: "age" - Demonstrates memory doesn't hallucinate non-existent data
 - Query 4: "preferred hue" - Shows keyword matching limitations vs semantic search
 
+### Day 4a: Agent Observability
+Debug and monitor agent behavior in production:
+- **Observability Pillars**: Logs, traces, and metrics for agent monitoring
+- **ADK Web UI**: Interactive debugging with event traces and LLM request inspection
+- **DEBUG Logging**: Enable detailed logging to diagnose agent failures
+- **Production Logging**: Use `LoggingPlugin` for automated observability
+- **Custom Plugins**: Build plugins to track custom metrics and behavior
+
+Key concepts:
+- Debugging pattern: symptom → logs → root cause → fix
+- Using `adk web --log_level DEBUG` for development debugging
+- Implementing callback hooks: `before_tool_callback`, `after_tool_callback`
+- Plugin lifecycle and automatic application to all agents
+- Production vs development observability strategies
+
+**Solution Implementation**: Custom Tool Tracking Plugin
+- Tracks total number of tool calls made during a session
+- Provides detailed breakdown by tool type
+- Demonstrates flexible callback signatures using `**kwargs`
+- Generates comprehensive summary reports
+- Perfect for production monitoring and cost tracking
+
+**Local Development Setup**:
+- Modified proxy setup for running ADK web UI outside Kaggle
+- Simplified localhost access without proxy configuration
+- Environment variable setup for local development
+
 ## Resources
 
 ### Documentation
@@ -247,6 +279,12 @@ Key concepts:
 - [ADK Memory Documentation](https://google.github.io/adk-docs/sessions/memory/)
 - [Vertex AI Memory Bank Overview](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/overview)
 - [Memory Consolidation Guide](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/memory-bank/generate-memories)
+
+### Observability
+- [ADK Observability Documentation](https://google.github.io/adk-docs/observability/logging/)
+- [Custom Plugins Guide](https://google.github.io/adk-docs/plugins/)
+- [Plugin Callback Hooks](https://google.github.io/adk-docs/plugins/#plugin-callback-hooks)
+- [Cloud Trace Integration](https://google.github.io/adk-docs/observability/cloud-trace/)
 
 ### MCP (Model Context Protocol)
 - [MCP Specification](https://spec.modelcontextprotocol.io/)
