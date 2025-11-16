@@ -100,10 +100,19 @@ ai-agents-5-day/
 ├── Day_3a_Sessions.ipynb                    # Day 3a: Session management
 ├── Day_3b_Agent_Memory.ipynb                # Day 3b: Memory management (with test queries)
 ├── Day_4a_Agent_Observability.ipynb         # Day 4a: Logging, traces & custom plugins
+├── Day_4b_Agent_Evaluation.ipynb            # Day 4b: Agent evaluation & user simulation
 ├── research-agent/                          # Research paper finder agent (Day 4a)
 │   ├── .env                                # Agent-specific API key
 │   ├── __init__.py                         # Python package file
 │   └── agent.py                            # Agent definition
+├── home_automation_agent/                   # Home automation agent (Day 4b)
+│   ├── .env                                # Agent-specific API key
+│   ├── __init__.py                         # Python package file
+│   ├── agent.py                            # Agent definition
+│   ├── test_config.json                    # Evaluation configuration
+│   ├── integration.evalset.json            # Static evaluation test cases
+│   ├── conversation_scenarios.json         # User simulation scenarios
+│   └── session_input.json                  # Session configuration for eval
 ├── CLAUDE.md                                # Development guidance
 └── README.md                                # This file
 ```
@@ -250,6 +259,51 @@ Key concepts:
 - Simplified localhost access without proxy configuration
 - Environment variable setup for local development
 
+### Day 4b: Agent Evaluation
+Systematically test and measure agent performance:
+- **Interactive Evaluation**: Create and test cases in ADK Web UI
+- **Evaluation Metrics**: Response match score and tool trajectory scoring
+- **Regression Testing**: Automated batch testing with `adk eval` CLI
+- **Static Test Cases**: Fixed evaluation sets with expected outputs
+- **User Simulation**: Dynamic conversation generation with LLM-backed testing
+
+Key concepts:
+- Tool trajectory vs response match evaluation
+- Creating eval sets and eval cases
+- Test configuration with pass/fail thresholds
+- Analyzing evaluation results for actionable insights
+- Conversation scenarios with starting_prompt and conversation_plan
+
+**Solution Implementation**: User Simulation with Conversation Scenarios
+- Define realistic conversation scenarios for dynamic testing
+- Create session input configuration for agent targeting
+- Use `adk eval_set` commands to build evaluation suites
+- Run evaluations with LLM-generated user interactions
+- Each run produces different natural conversations
+- Discovers edge cases static tests miss
+
+**Files Created**:
+- `test_config.json` - Evaluation criteria and thresholds
+- `integration.evalset.json` - Static test cases
+- `conversation_scenarios.json` - User simulation scenarios
+- `session_input.json` - Agent and user configuration
+
+**CLI Workflow**:
+```bash
+# Create eval set
+adk eval_set create <agent_path> <eval_set_name>
+
+# Add conversation scenarios
+adk eval_set add_eval_case <agent_path> <eval_set_name> \
+  --scenarios_file conversation_scenarios.json \
+  --session_input_file session_input.json
+
+# Run evaluation
+adk eval <agent_path> <eval_set_name> \
+  --config_file_path test_config.json \
+  --print_detailed_results
+```
+
 ## Resources
 
 ### Documentation
@@ -285,6 +339,13 @@ Key concepts:
 - [Custom Plugins Guide](https://google.github.io/adk-docs/plugins/)
 - [Plugin Callback Hooks](https://google.github.io/adk-docs/plugins/#plugin-callback-hooks)
 - [Cloud Trace Integration](https://google.github.io/adk-docs/observability/cloud-trace/)
+
+### Evaluation
+- [ADK Evaluation Overview](https://google.github.io/adk-docs/evaluate/)
+- [Evaluation Criteria](https://google.github.io/adk-docs/evaluate/criteria/)
+- [User Simulation Guide](https://google.github.io/adk-docs/evaluate/user-sim/)
+- [Pytest-based Evaluation](https://google.github.io/adk-docs/evaluate/#2-pytest-run-tests-programmatically)
+- [Advanced Evaluation Criteria](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/determine-eval)
 
 ### MCP (Model Context Protocol)
 - [MCP Specification](https://spec.modelcontextprotocol.io/)
