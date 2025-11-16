@@ -1,0 +1,12 @@
+{
+  "scenarios": [
+    {
+      "starting_prompt": "I'm starting my evening routine and need to adjust the lighting.",
+      "conversation_plan": "You are a homeowner starting your evening routine. \n            First, ask the agent to turn on the living room lamp for reading.\n            After you get confirmation, ask about turning off the kitchen lights.\n            Finally, check if you can control the bedroom lights.\n            Be natural and conversational in your requests."
+    },
+    {
+      "starting_prompt": "I need help with the lights in my house.",
+      "conversation_plan": "You want to check what lights the agent can control.\n            Start by asking what devices are available.\n            Then request to turn on a specific light in the office.\n            If successful, ask to turn it back off."
+    }
+  ]
+}
