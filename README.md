@@ -101,6 +101,8 @@ ai-agents-5-day/
 ├── Day_3b_Agent_Memory.ipynb                # Day 3b: Memory management (with test queries)
 ├── Day_4a_Agent_Observability.ipynb         # Day 4a: Logging, traces & custom plugins
 ├── Day_4b_Agent_Evaluation.ipynb            # Day 4b: Agent evaluation & user simulation
+├── Day_5a_Agent2Agent_Communication.ipynb   # Day 5a: A2A protocol & multi-agent communication
+├── Day_5b_Agent_Deployment.ipynb            # Day 5b: Production deployment to Vertex AI Agent Engine
 ├── research-agent/                          # Research paper finder agent (Day 4a)
 │   ├── .env                                # Agent-specific API key
 │   ├── __init__.py                         # Python package file
@@ -304,6 +306,65 @@ adk eval <agent_path> <eval_set_name> \
   --print_detailed_results
 ```
 
+### Day 5a: Agent2Agent (A2A) Communication
+Build multi-agent systems with cross-organization collaboration:
+- **A2A Protocol**: Standard for agent-to-agent communication across networks and frameworks
+- **Exposing Agents**: Use `to_a2a()` to make agents accessible with auto-generated agent cards
+- **Consuming Agents**: Use `RemoteA2aAgent` to integrate remote agents as local sub-agents
+- **Architecture Patterns**: Cross-framework, cross-language, and cross-organization integration
+
+Key concepts:
+- Understanding A2A vs local sub-agents decision criteria
+- Agent cards as formal contracts (`/.well-known/agent-card.json`)
+- Using `to_a2a()` to expose agents via FastAPI/Starlette server
+- `RemoteA2aAgent` as client-side proxy for remote agents
+- Real-world applications: microservices, third-party integrations, vendor services
+
+**Implementation Example**: Product Catalog Integration
+- Product Catalog Agent (external vendor) exposed via A2A
+- Customer Support Agent consuming remote catalog via A2A protocol
+- Demonstrates separation of concerns and cross-organization boundaries
+- Local simulation for learning (production would use different hosts)
+
+**Protocol Details**:
+- HTTP POST requests to `/tasks` endpoint
+- Standardized JSON format following A2A specification
+- Language/framework agnostic communication
+- Network-based agent collaboration
+
+### Day 5b: Agent Deployment
+Deploy agents to production with Vertex AI Agent Engine:
+- **Production Readiness**: Package agents for cloud deployment
+- **Vertex AI Agent Engine**: Fully managed service with auto-scaling
+- **Deployment Configuration**: Resource limits, scaling, and environment setup
+- **Cost Management**: Free tier usage and cleanup best practices
+- **Long-Term Memory**: Vertex AI Memory Bank for cross-session persistence
+
+Key concepts:
+- Creating deployment package (agent.py, requirements.txt, .env, .agent_engine_config.json)
+- Using `adk deploy agent_engine` CLI command
+- Setting resource limits (CPU, memory, min/max instances)
+- Region selection for optimal latency
+- Retrieving and testing deployed agents via SDK
+
+**Implementation Example**: Weather Assistant Deployment
+- Production-ready agent with `gemini-2.5-flash-lite` model
+- Custom `get_weather` tool for demonstration
+- Deployment to Agent Engine with auto-scaling configuration
+- Async streaming query testing
+- Proper cleanup to avoid costs
+
+**Deployment Options**:
+- **Vertex AI Agent Engine**: Managed service with session management (this notebook)
+- **Cloud Run**: Serverless deployment for demos and small workloads
+- **GKE**: Full control for complex multi-agent systems
+
+**Memory Bank Integration**:
+- Session memory vs long-term memory across conversations
+- `PreloadMemoryTool` for automatic recall of user preferences
+- Automatic extraction of key facts after conversations
+- Infrastructure provided by Agent Engine deployment
+
 ## Resources
 
 ### Documentation
@@ -346,6 +407,24 @@ adk eval <agent_path> <eval_set_name> \
 - [User Simulation Guide](https://google.github.io/adk-docs/evaluate/user-sim/)
 - [Pytest-based Evaluation](https://google.github.io/adk-docs/evaluate/#2-pytest-run-tests-programmatically)
 - [Advanced Evaluation Criteria](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/determine-eval)
+
+### Agent2Agent Communication
+- [A2A Protocol Official Website](https://a2a-protocol.org/)
+- [A2A Protocol Specification](https://a2a-protocol.org/latest/specification/)
+- [Introduction to A2A in ADK](https://google.github.io/adk-docs/a2a/intro/)
+- [Exposing Agents Quickstart](https://google.github.io/adk-docs/a2a/quickstart-exposing/)
+- [Consuming Agents Quickstart](https://google.github.io/adk-docs/a2a/quickstart-consuming/)
+- [A2A Tutorials](https://a2a-protocol.org/latest/tutorials/)
+
+### Deployment
+- [ADK Deployment Guide](https://google.github.io/adk-docs/deploy/)
+- [Deploy to Agent Engine](https://google.github.io/adk-docs/deploy/agent-engine/)
+- [Deploy to Cloud Run](https://google.github.io/adk-docs/deploy/cloud-run/)
+- [Deploy to GKE](https://google.github.io/adk-docs/deploy/gke/)
+- [Vertex AI Agent Engine Overview](https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/overview)
+- [Agent Engine Pricing](https://docs.cloud.google.com/agent-builder/agent-engine/overview#pricing)
+- [Agent Starter Pack (GitHub)](https://github.com/GoogleCloudPlatform/agent-starter-pack)
+- [Memory Bank with ADK](https://github.com/GoogleCloudPlatform/generative-ai/blob/main/agents/agent_engine/memory_bank/get_started_with_memory_bank_on_adk.ipynb)
 
 ### MCP (Model Context Protocol)
 - [MCP Specification](https://spec.modelcontextprotocol.io/)
